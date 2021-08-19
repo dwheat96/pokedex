@@ -42,8 +42,8 @@ function App() {
     <>
     <PokemonList pokemon={pokemon} />
     <Pagination 
-    gotoNextPage={gotoNextPage}
-    gotoPrevPage={gotoPrevPage}
+    gotoNextPage={ nextPageURL ? gotoNextPage : null}
+    gotoPrevPage={ prevPageURL ? gotoPrevPage : null}
     />
     </>
   );
