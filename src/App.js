@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios'
 import './index.css';
-import pokemonThumbnail from './components/pokemonThumbnail';
+import PokemonThumbnail from './components/PokemonThumbnail';
 
 
 
@@ -37,18 +36,18 @@ function App() {
     <div className="app-container">
         <h1> Welcome </h1>
         <div className="pokemon-container">
-          <div className="all-containers">
-              { allPokemon.map( pokemon , index => 
-                <pokemonThumbnail 
+          <div className="all-container">
+              { allPokemon.map( (pokemon , index) => 
+                <PokemonThumbnail 
                 id={pokemon.id}
                 name={pokemon.name}
-                image={pokemon.sprite.other.dream_world.front_default}
+                image={pokemon.sprites.other.dream_world.front_default}
                 type={pokemon.types[0].type.name}
                 key={index}
                 />
                 )}
           </div>
-          <button className="load-more">Load More</button>
+          <button className="load-more" onClick={() => getAllPokemon()}>Load More</button>
         </div>
     </div>
   )
