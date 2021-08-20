@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'
 import './index.css';
+import pokemonThumbnail from './components/pokemonThumbnail';
 
 
 
@@ -13,7 +14,19 @@ function App() {
     const res = await fetch(loadMore)
     const data = await res.json()
 
-    console.log(data)
+    setLoadMore(data.next)
+
+    function createPokemonObject(result) {
+        result.forEach( async (pokemon) => {
+            const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon.name}`)
+            const data = await res.json()
+
+            setAllPokemon(currentList => [...currentList, data])
+          
+          })
+    }
+    createPokemonObject(data.results)
+    await console.log(allPokemon)
   }
 
   useEffect(() => {
@@ -24,8 +37,16 @@ function App() {
     <div className="app-container">
         <h1> Welcome </h1>
         <div className="pokemon-container">
-          <div className="all-container">
-
+          <div className="all-containers">
+              { allPokemon.map( pokemon , index => 
+                <pokemonThumbnail 
+                id={pokemon.id}
+                name={pokemon.name}
+                image={pokemon.sprite.other.dream_world.front_default}
+                type={pokemon.types[0].type.name}
+                key={index}
+                />
+                )}
           </div>
           <button className="load-more">Load More</button>
         </div>
